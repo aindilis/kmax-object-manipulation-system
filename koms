@@ -1,0 +1,19 @@
+#!/usr/bin/perl -w
+
+use KOMS;
+
+use UniLang::Agent::Agent;
+use UniLang::Util::Message;
+
+$UNIVERSAL::agent = UniLang::Agent::Agent->new
+  (Name => "KOMS",
+   ReceiveHandler => \&Receive);
+$UNIVERSAL::koms = KOMS->new();
+
+sub Receive {
+  my %args = @_;
+  $UNIVERSAL::koms->ProcessMessage
+    (Message => $args{Message});
+}
+
+$UNIVERSAL::koms->Execute();
